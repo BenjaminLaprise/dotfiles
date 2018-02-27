@@ -127,16 +127,6 @@ meow
 
 alias td='todocli'
 
-function click() {
-	if [ $# -eq 0 ]
-	then
-		for i in "$@"
-		do
-			xdotool click 1
-		done
-	fi
-}
-
 #i3
 alias i3conf='vim ~/.config/i3/config'
 
@@ -222,14 +212,6 @@ function wegotrade-start() {
 	i3-msg split h
 	vagrant ssh
 }
-
-
-#tlm
-function wiki() {
-	cd ~/Documents/tlm-wiki
-	gollum & google-chrome http://localhost:4567/Home
-}
-
 
 #extensions
 alias j=jump
