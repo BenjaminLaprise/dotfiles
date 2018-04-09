@@ -199,11 +199,6 @@ function lpu() {
         fi
 }
 
-#wegotrade
-alias wgt-e2e="~/scripts/wgt-e2e.sh"
-alias wegotrade-watch='sh ~/scripts/wegotrade-watch.sh'
-alias wegotrade-start='~/scripts/wegotrade-start' 
-
 #extensions
 alias j=jump
 
