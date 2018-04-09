@@ -126,10 +126,8 @@ alias dnfr='sudo dnf remove'
 alias dnfs='dnf search'
 alias dnfu='sudo dnf upgrade'
 alias clear='clear && meow'
-alias odf='cd ~/App/DF-LNP/pack && sudo ./startlnp'
 alias volu='amixer sset -q Master +2%'
 alias vold='amixer sset -q Master -2%'
-alias cava='~/repos/cava/cava'
 meow
 
 #i3
