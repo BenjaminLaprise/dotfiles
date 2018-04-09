@@ -114,6 +114,9 @@ export PATH="~/bin/geckodriver:$PATH"
 function loadenv() {
 	export $(cat ${1:-.env} | xargs)
 }
+
+alias cal="notify-send '$(cal)'"
+
 #zsh
 alias meow='cat ~/scripts/draw_a_cat.sh'
 alias ozsh='vim ~/.zshrc'
@@ -123,9 +126,11 @@ alias dnfr='sudo dnf remove'
 alias dnfs='dnf search'
 alias dnfu='sudo dnf upgrade'
 alias clear='clear && meow'
+alias odf='cd ~/App/DF-LNP/pack && sudo ./startlnp'
+alias volu='amixer sset -q Master +2%'
+alias vold='amixer sset -q Master -2%'
+alias cava='~/repos/cava/cava'
 meow
-
-alias td='todocli'
 
 #i3
 alias i3conf='vim ~/.config/i3/config'
@@ -195,9 +200,10 @@ function lpu() {
 }
 
 #wegotrade
+alias wgt-e2e="~/scripts/wgt-e2e.sh"
 alias wegotrade-watch='sh ~/scripts/wegotrade-watch.sh'
 function wegotrade-start() {
-	jump wegotrade-api
+	jump api-wegotrade
 	loadenv .env.docker-mysql
 	docker start wegotrade_mysql
 	jump wegotrade-vagrant
