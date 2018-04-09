@@ -202,22 +202,7 @@ function lpu() {
 #wegotrade
 alias wgt-e2e="~/scripts/wgt-e2e.sh"
 alias wegotrade-watch='sh ~/scripts/wegotrade-watch.sh'
-function wegotrade-start() {
-	jump api-wegotrade
-	loadenv .env.docker-mysql
-	docker start wegotrade_mysql
-	jump wegotrade-vagrant
-	vagrant up
-	i3-msg split h
-	terminator -x mux wgt
-	vagrant ssh -c "sudo supervisorctl restart all"
-	i3-msg focus left
-	i3-msg split v
-	terminator -x docker logs -f wegotrade_mysql
-	clear
-	i3-msg split h
-	vagrant ssh
-}
+alias wegotrade-start='~/scripts/wegotrade-start' 
 
 #extensions
 alias j=jump
