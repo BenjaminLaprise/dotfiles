@@ -160,15 +160,11 @@ bindsym XF86AudioMute exec amixer -q -c 1 sset Master 0%
 bindsym $mod+p exec lpp
 bindsym $mod+shift+p exec lpu
 bindsym $mod+n exec "~/scripts/lock.sh"
-bindsym $mod+a scratchpad show
-bindsym $mod+shift+a move scratchpad
 bindsym Print exec gnome-screenshot -i
 bindsym $mod+Control+k exec ~/scripts/cal
 bindsym $mod+Control+n exec nautilus
 bindsym $mod+Control+c exec google-chrome
 bindsym $mod+Control+p exec charm
-bindsym $mod+Control+d exec vifm
-bindsym $mod+Control+h exec terminator -x htop
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id /usr/bin/compton --config ~/.compton.conf        
@@ -181,7 +177,36 @@ exec --no-startup-id zoom
 exec --no-startup-id thunderbird
 exec --no-startup-id copyq
 exec --no-startup-id nitrogen --set-auto ~/Images/background/cats.jpg
-exec --no-startup-id "xrandr --output DP-1 --rotate left --right-of HDMI-2 --pos 1920x0"
+exec --no-startup-id xrandr --output DP-1 --rotate left --right-of HDMI-2 --pos 1920x0
+exec --no-startup-id unclutter --timeout 1 --fork  
+
+bindsym $mod+z exec ~/scripts/screencast.sh
+bindsym $mod+shift+z exec killall ffmpeg
+
+exec --no-startup-id terminator -l KJ -T "F1" -e "mux vtop"
+#for_window [title="F1"] floating enable, move scratchpad, scratchpad show;
+for_window [title="F1"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
+bindsym Mod1+F1 [title="F1"] scratchpad show
+
+exec --no-startup-id terminator -l KJ -T "F3" -e "calcurse"
+#for_window [instance="terminator" title="F3"] floating enable, move scratchpad, scratchpad show;
+for_window [instance="terminator" title="F3"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
+bindsym Mod1+F3 [instance="terminator" title="F3"] scratchpad show
+
+exec --no-startup-id terminator -l KJ -T "F4" -e "htop"
+#for_window [instance="terminator" title="F4"] floating enable, move scratchpad, scratchpad show;
+for_window [instance="terminator" title="F4"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
+bindsym Mod1+F4 [instance="terminator" title="F4"] scratchpad show
+
+exec --no-startup-id terminator -l KJ -T "F2" -e "alsamixer"
+#for_window [instance="terminator" title="F2"] floating enable, move scratchpad, scratchpad show;
+for_window [instance="terminator" title="F2"] resize grow down 150, resize grow up 100, resize grow up 100, move scratchpad;
+bindsym Mod1+F2 [instance="terminator" title="F2"] scratchpad show
+
+exec --no-startup-id spotify
+#for_window [class="Spotify"] floating enable, move scratchpad, scratchpad show;
+for_window [class="Spotify"] resize grow down 150, resize grow up 100, move scratchpad;
+bindsym $mod+a [class="Spotify"] scratchpad show
 
 
 workspace_auto_back_and_forth yes
@@ -195,14 +220,14 @@ for_window [class="(?i)qemu-system"] floating enable
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)blueman"] floating enable
-for_window [class="(?i)pinentry"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [class="(?i)pinentry"] floating enable
 for_window [class=".*"] border pixel 3
 for_window [class="(?i)Google-chrome"] border pixel 0
 for_window [class="(?i)albert"] border pixel 0
 for_window [class="(?i)terminator"] border pixel 0
 for_window [title="(?i)Zoom Cloud Meetings"] kill
-
+for_window [title="(?i)Drawer"] floating enable
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          "#AAAAAA"   "#DDDDDD"   "#333333"   "#333333"   "#555555"
@@ -319,8 +344,9 @@ mode "mouse" {
 bindsym $mod+control+m mode "mouse"
 
 bindsym $mod+Control+Shift+s exec shutdown -h now
-bindsym $mod+Control+Shift+r exec reboot
+bindsym $mod+Control+Shift+a exec reboot
 
 hide_edge_borders both
 gaps inner 10
 gaps outer 0
+
