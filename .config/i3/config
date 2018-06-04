@@ -17,7 +17,7 @@ font pango:URW Gothic Book 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+# font pango:DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -30,6 +30,7 @@ font pango:URW Gothic Book 9
 floating_modifier $mod
 
 # start a terminal
+#bindsym $mod+Return exec termite
 bindsym $mod+Return exec terminator
 
 # Move focused workspace to monitor
@@ -40,7 +41,7 @@ bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Shift+q kill
 
 # start a program launcher
-bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 bindsym $mod+q exec --no-startup-id rofi -show
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -91,10 +92,14 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym Mod4+Tab focus parent
+bindsym $mod+Tab focus parent
 
 # focus the child container
-bindsym Mod1+Tab focus child
+bindsym $mod+Shift+Tab focus child
+
+# tab through workspaces
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -166,17 +171,19 @@ bindsym $mod+Control+n exec nautilus
 bindsym $mod+Control+c exec google-chrome
 bindsym $mod+Control+p exec charm
 
+bindsym Mod1+Shift+a mark "scratchpad", move scratchpad
+bindsym Mod4+Shift+a [con_mark="scratchpad"] scratchpad show
+
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id /usr/bin/compton --config ~/.compton.conf        
-exec --no-startup-id gnome-settings-deamon
 exec --no-startup-id DiscordCanary
 exec --no-startup-id slack
-exec --no-startup-id albert
 exec --no-startup-id nm-applet
 exec --no-startup-id zoom
 exec --no-startup-id thunderbird
 exec --no-startup-id copyq
 exec --no-startup-id nitrogen --set-auto ~/Images/background/cats.jpg
+exec --no-startup-id xrandr --output HDMI-2 --primary
 exec --no-startup-id xrandr --output DP-1 --rotate left --right-of HDMI-2 --pos 1920x0
 exec --no-startup-id unclutter --timeout 1 --fork  
 
@@ -184,30 +191,29 @@ bindsym $mod+z exec ~/scripts/screencast.sh
 bindsym $mod+shift+z exec killall ffmpeg
 
 exec --no-startup-id terminator -l KJ -T "F1" -e "mux vtop"
-#for_window [title="F1"] floating enable, move scratchpad, scratchpad show;
 for_window [title="F1"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
 bindsym Mod1+F1 [title="F1"] scratchpad show
 
 exec --no-startup-id terminator -l KJ -T "F3" -e "calcurse"
-#for_window [instance="terminator" title="F3"] floating enable, move scratchpad, scratchpad show;
 for_window [instance="terminator" title="F3"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
 bindsym Mod1+F3 [instance="terminator" title="F3"] scratchpad show
 
 exec --no-startup-id terminator -l KJ -T "F4" -e "htop"
-#for_window [instance="terminator" title="F4"] floating enable, move scratchpad, scratchpad show;
 for_window [instance="terminator" title="F4"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
 bindsym Mod1+F4 [instance="terminator" title="F4"] scratchpad show
 
 exec --no-startup-id terminator -l KJ -T "F2" -e "alsamixer"
-#for_window [instance="terminator" title="F2"] floating enable, move scratchpad, scratchpad show;
 for_window [instance="terminator" title="F2"] resize grow down 150, resize grow up 100, resize grow up 100, move scratchpad;
 bindsym Mod1+F2 [instance="terminator" title="F2"] scratchpad show
 
 exec --no-startup-id spotify
-#for_window [class="Spotify"] floating enable, move scratchpad, scratchpad show;
 for_window [class="Spotify"] resize grow down 150, resize grow up 100, move scratchpad;
 bindsym $mod+a [class="Spotify"] scratchpad show
 
+exec --no-startup-id albert && albert show
+for_window [title="albert — Albert"] move scratchpad
+#bindsym Mod4+d exec ~/scripts/show-albert
+bindsym Mod4+d [title="albert — Albert"] exec albert show, scratchpad show 
 
 workspace_auto_back_and_forth yes
 for_window [window_role="pop-up"] floating enable
@@ -226,6 +232,8 @@ for_window [class=".*"] border pixel 3
 for_window [class="(?i)Google-chrome"] border pixel 0
 for_window [class="(?i)albert"] border pixel 0
 for_window [class="(?i)terminator"] border pixel 0
+for_window [class="(?i)termite"] border pixel 0
+for_window [class="(?i)urxvt"] border pixel 0
 for_window [title="(?i)Zoom Cloud Meetings"] kill
 for_window [title="(?i)Drawer"] floating enable
 

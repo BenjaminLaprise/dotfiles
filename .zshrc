@@ -31,7 +31,7 @@ ZSH_THEME="muse"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="false"
+DISABLE_AUTO_UPDATE="true"
 DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -57,7 +57,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+# HIST_STAMPS="mm/dd/yyyy/"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -76,6 +76,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+TERM=xterm
 
 # User configuration
 
@@ -109,14 +111,17 @@ source $ZSH/oh-my-zsh.sh
 ## Custom entries
 export PATH=$HOME/local/bin:$PATH
 
+export GOROOT=/usr/lib/golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 export PATH="~/bin/geckodriver:$PATH" 
 
 function loadenv() {
 	export $(cat ${1:-.env} | xargs)
 }
 
-alias cal="notify-send '$(cal)'"
-
+alias crawl='wget -mkE -l 10 -t 6 -w 1'
 #zsh
 alias meow='cat ~/scripts/draw_a_cat.sh'
 alias ozsh='vim ~/.zshrc'
@@ -128,6 +133,8 @@ alias dnfu='sudo dnf upgrade'
 alias clear='clear && meow'
 alias volu='amixer sset -q Master +2%'
 alias vold='amixer sset -q Master -2%'
+alias chmux='chmod u+x'
+
 meow
 
 #i3
@@ -213,3 +220,7 @@ if [ -f ~/zsh.command-not-found ]; then
 fi
 
 eval $(thefuck --alias)
+
+#Docker
+alias dck='docker'
+alias dckc='docker-compose'

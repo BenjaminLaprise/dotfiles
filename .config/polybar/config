@@ -42,16 +42,12 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
-font-3 = "FontAwesome:pixelsize=10"
-#font-4 = "FontAwesome:style=Solid:pixelsize=8;1"
-#font-5 = "FontAwesome:pixelsize=8;1"
+font-0 = San Francisco Display Regular:size=10;5
+font-1 = FontAwesome:size=10;5
 
-modules-left = bspwm i3
+modules-left = i3
 modules-center = xwindow 
-modules-right = filesystem alsa xkeyboard memory cpu battery temperature date powermenu
+modules-right = filesystem alsa xkeyboard memory cpu battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -379,7 +375,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = P 
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
