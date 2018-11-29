@@ -2,19 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/laprise/.oh-my-zsh
+  export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 #sonicradish.zsh-theme
-#sorin.zsh-theme
-#humza.zsh-theme
 #adben.zsh-theme
-#
+#garyblessington
 
-ZSH_THEME="muse"
+ZSH_THEME="lambda"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -73,6 +71,7 @@ plugins=(
   nyan
   dircycle
   copydir
+  sudo
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,7 +83,7 @@ TERM=xterm
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_CA.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -109,13 +108,12 @@ TERM=xterm
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ## Custom entries
-export PATH=$HOME/local/bin:$PATH
-
-export GOROOT=/usr/lib/golang
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
+export PATH=$PATH:$GOPATH:/bin
+export PATH=$HOME/local/bin:$PATH
 export PATH="~/bin/geckodriver:$PATH" 
+
+eval "$(direnv hook zsh)"
 
 function loadenv() {
 	export $(cat ${1:-.env} | xargs)
@@ -123,36 +121,37 @@ function loadenv() {
 
 alias crawl='wget -mkE -l 10 -t 6 -w 1'
 #zsh
-alias meow='cat ~/scripts/draw_a_cat.sh'
-alias ozsh='vim ~/.zshrc'
+alias ezsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
-alias dnfi='sudo dnf install'
-alias dnfr='sudo dnf remove'
-alias dnfs='dnf search'
-alias dnfu='sudo dnf upgrade'
-alias clear='clear && meow'
 alias volu='amixer sset -q Master +2%'
 alias vold='amixer sset -q Master -2%'
 alias chmux='chmod u+x'
+alias clip='xclip -selection clipboard'
+alias less='less -Q'
+alias man 'man -P "less -Q"'
 
-meow
+#Arch
+alias pacu='sudo pacman -Syu'
+alias paci='sudo pacman -S'
+alias pacr='sudo pacman -R'
+alias pacs='sudo pacman -Ss'
 
 #i3
 alias i3conf='vim ~/.config/i3/config'
 
 #Django
-source /usr/bin/virtualenvwrapper.sh
-
+#source /usr/bin/virtualenvwrapper.sh
+export PYTHONSTARTUP=~/.pythonrc
 alias pym='python manage.py'
 alias dapy='django-admin.py'
 alias pymt='python manage.py test'
 
 function pvva() {
-	if [ $# -eq 0 ]
+	if [ $# -eq 1 ]
 	then
-		source venv/bin/activate
+		source $1/bin/activate
 	else
-		source env/bin/activate
+		source venv/bin/activate
 	fi
 }
 
@@ -172,41 +171,28 @@ function pymr() {
 	fi
 }
 
-#LastPass
-function lpp() {
-       if [ $# -eq 0 ]
-        then
-		url=$(xclip -o)
-		url=$(~/scripts/parseURL.sh $url)
-		lpass show -c --password  $url
-	elif  [ $# -eq 1 ]
-	then
-		url=$(~/scripts/parseURL.sh $1)
-		lpass show -c --password  $url
-	else
-		echo Nop
-        fi
-}
-
-
-function lpu() {
-        if [ $# -eq 0 ]
-        then
-		url=$(xclip -o)
-		url=$(~/scripts/parseURL.sh $url)
-		lpass show -c --username $url
-	elif [ $# -eq 1 ]
-        then
-		url=$(~/scripts/parseURL.sh $1)
-		lpass show -c --username $url
-        else
-		echo Nop
-        fi
-}
+export EDITOR=$(which vim)
 
 #extensions
 alias j=jump
 
+#Wal
+(cat ~/.cache/wal/sequences &)
+
+#Docker
+alias dck='docker'
+alias dckc='docker-compose'
+
+#venv
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source $HOME/.local/bin/virtualenvwrapper.sh
+
+#NPM
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 PATH="$NPM_PACKAGES/bin:$PATH"
@@ -220,7 +206,7 @@ if [ -f ~/zsh.command-not-found ]; then
 fi
 
 eval $(thefuck --alias)
-
-#Docker
-alias dck='docker'
-alias dckc='docker-compose'
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+source $HOME/.bin/tmuxinator.zsh
