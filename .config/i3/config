@@ -137,11 +137,6 @@ bindsym $mod+Control+p exec ~/.wallpaper/wall_3_2
 bindsym $mod+x exec teiler --quick video area
 bindsym $mod+Control+a scratchpad show
 
-bindsym Mod1+Mod4+h resize set 960 540, exec ~/scripts/quarter.sh 0 0;
-bindsym Mod1+Mod4+j resize set 960 540, exec ~/scripts/quarter.sh 0 540;
-bindsym Mod1+Mod4+k resize set 960 540, exec ~/scripts/quarter.sh 960 0;
-bindsym Mod1+Mod4+l resize set 960 540, exec ~/scripts/quarter.sh 960 540;
-
 #Startup
 exec --no-startup-id compton --config ~/.compton.conf        
 exec --no-startup-id discord
