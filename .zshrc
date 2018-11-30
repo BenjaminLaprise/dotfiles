@@ -120,15 +120,17 @@ function loadenv() {
 }
 
 alias crawl='wget -mkE -l 10 -t 6 -w 1'
+
 #zsh
 alias ezsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias volu='amixer sset -q Master +2%'
 alias vold='amixer sset -q Master -2%'
 alias chmux='chmod u+x'
-alias clip='xclip -selection clipboard'
 alias less='less -Q'
 alias man 'man -P "less -Q"'
+alias iclip='xclip -selection clipboard'
+alias oclip='xclip -selection clipboard -o'
 
 #Arch
 alias pacu='sudo pacman -Syu'
@@ -182,6 +184,12 @@ alias j=jump
 #Docker
 alias dck='docker'
 alias dckc='docker-compose'
+
+function  dckid() {
+    container_name=$1
+    container_infos=`docker ps -a | grep $container_name`
+    echo $container_infos | awk '{print $1}'
+}
 
 #venv
 . $HOME/.asdf/asdf.sh
