@@ -155,8 +155,8 @@ bindsym $mod+Control+Shift+a exec reboot
 
 #Add a terminal in the scratchpad
 exec --no-startup-id terminator -p scratchpad -l KJ -T "scratch-terminal"
-for_window [title="scratch-terminal"] move scratchpad, resize set width 1000 px, resize set height 1000 px;
-bindsym Mod4+t [title="scratch-terminal"] scratchpad show
+for_window [title="scratch-terminal"] move scratchpad
+bindsym Mod4+t [title="scratch-terminal"] scratchpad show, resize set 1000 1000;
 
 #Vtop in scratchpad
 for_window [instance="terminator" title="F1"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
@@ -189,9 +189,9 @@ exec --no-startup-id toggldesktop
 bindsym $mod+g [title="Toggl Desktop"] scratchpad show
 
 #Spotify in scratchpad
-for_window [class="Spotify"] move scratchpad, resize set width 1000 px, resize set height 1000 px;
+for_window [class="Spotify"] move scratchpad
 exec --no-startup-id spotify
-bindsym $mod+a [class="Spotify"] scratchpad show
+bindsym $mod+a [class="Spotify"] scratchpad show, resize set 1000 1000;
 
 #Set some windows as floating
 for_window [window_role="pop-up"] floating enable
