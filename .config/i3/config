@@ -133,7 +133,7 @@ bindsym $mod+l exec ~/scripts/web-search.sh
 bindsym $mod+Control+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
 bindsym $mod+Control+p exec ~/.wallpaper/wall_3_2
-bindsym $mod+Alt+p exec ~/.wallpaper/wall_3
+bindsym $mod+Shift+Control+p exec ~/.wallpaper/wall_3
 bindsym $mod+x exec teiler --quick video area
 bindsym $mod+Control+a scratchpad show
 bindsym $mod+Control+c exec rofi -show calc -modi "calc:qalc +u8 -nocurrencies"
