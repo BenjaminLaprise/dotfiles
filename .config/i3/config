@@ -132,11 +132,12 @@ bindsym $mod+o exec ~/scripts/rofi_notes.sh
 bindsym $mod+l exec ~/scripts/web-search.sh
 bindsym $mod+Control+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
-bindsym $mod+Control+c exec google-chrome-stable
 bindsym $mod+Control+p exec ~/.wallpaper/wall_3_2
 bindsym $mod+Alt+p exec ~/.wallpaper/wall_3
 bindsym $mod+x exec teiler --quick video area
 bindsym $mod+Control+a scratchpad show
+bindsym $mod+Control+c exec rofi -show calc -modi "calc:qalc +u8 -nocurrencies"
+
 
 #Startup
 exec --no-startup-id compton --config ~/.compton.conf        
@@ -241,3 +242,21 @@ client.background $bg
 gaps inner 6
 gaps outer 0
 
+## Plasma Integration
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
+exec --no-startup-id wmctrl -c Plasma
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+
+## Avoid tiling popups, dropdown windows from plasma
+# for the first time, manually resize them, i3 will remember the setting for floating windows
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="yakuake"] floating enable;
+for_window [class="lattedock"] floating enable;
+for_window [class="kruler"] floating enable; border none
