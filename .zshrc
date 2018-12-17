@@ -133,6 +133,8 @@ alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
 
 #Git
+alias oups='git reset HEAD~'
+
 function gog() {
     start_date="2018-$2-$1 00:00:00"
     end_date="2018-$2-$1 23:59:59"
