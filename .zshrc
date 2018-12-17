@@ -136,8 +136,8 @@ alias oclip='xclip -selection clipboard -o'
 alias oups='git reset HEAD~'
 
 function gog() {
-    start_date="2018-$2-$1 00:00:00"
-    end_date="2018-$2-$1 23:59:59"
+    start_date="2018-$1-$2 00:00:00"
+    end_date="2018-$1-$2 23:59:59"
 
     git log --after=$start_date --before=$end_date --reverse
 }
