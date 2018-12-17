@@ -132,6 +132,14 @@ alias man 'man -P "less -Q"'
 alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
 
+#Git
+function gog() {
+    start_date="2018-$2-$1 00:00:00"
+    end_date="2018-$2-$1 23:59:59"
+
+    git log --after=$start_date --before=$end_date --reverse
+}
+
 #Arch
 alias pacu='sudo pacman -Syu'
 alias paci='sudo pacman -S'
