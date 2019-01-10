@@ -132,12 +132,23 @@ alias man 'man -P "less -Q"'
 alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
 
+function hist() {
+    if [[ -z "$3" ]]; then
+         year=$(date +%y)
+    fi
+    date="20$year-$1-$2"
+    fc -li 1000 | grep $date | less
+}
+
 #Git
 alias oups='git reset HEAD~'
 
 function gog() {
-    start_date="2018-$1-$2 00:00:00"
-    end_date="2018-$1-$2 23:59:59"
+    if [[ -z "$3" ]]; then
+        year=$(date +%y)
+    fi
+    start_date="20$year-$1-$2 00:00:00"
+    end_date="20$year-$1-$2 23:59:59"
 
     git log --after=$start_date --before=$end_date --reverse
 }

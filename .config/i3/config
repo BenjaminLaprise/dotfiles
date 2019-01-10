@@ -128,7 +128,6 @@ bindsym Print exec teiler --quickcopy area
 bindsym $mod+z exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+shift+p exec lpu
 bindsym $mod+n exec ~/scripts/lock.sh
-bindsym $mod+o exec ~/scripts/rofi_notes.sh
 bindsym $mod+l exec ~/scripts/web-search.sh
 bindsym $mod+Control+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
@@ -154,45 +153,50 @@ exec --no-startup-id rescuetime
 bindsym $mod+Control+Shift+s exec shutdown -h now
 bindsym $mod+Control+Shift+a exec reboot
 
+#Notable in scratchpad
+for_window [title="Notable"] move scratchpad, resize set 1000 1000;
+exec --no-startup-id notable
+bindsym $mod+o [title="Notable"] scratchpad show
+
 #Add a terminal in the scratchpad
+for_window [title="scratch-terminal"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id terminator -p scratchpad -l KJ -T "scratch-terminal"
-for_window [title="scratch-terminal"] move scratchpad
-bindsym Mod4+t [title="scratch-terminal"] scratchpad show, resize set 1000 1000;
+bindsym Mod4+t [title="scratch-terminal"] scratchpad show
 
 #Vtop in scratchpad
-for_window [instance="terminator" title="F1"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
+for_window [instance="terminator" title="F1"] move scrachpad, resize set 1000 1000;
 exec --no-startup-id terminator -l KJ -T "F1" -e "vtop -t brew"
 bindsym Mod1+F1 [title="F1"] scratchpad show
 
 #Pavucontrol in scratchpad
-for_window [class="Pavucontrol"] move scratchpad
+for_window [class="Pavucontrol"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id pavucontrol
 bindsym Mod1+F2 [class="Pavucontrol"] scratchpad show
 
 #Htop in scratchpad
-for_window [instance="terminator" title="F3"] resize grow left 100, resize grow right 100, resize grow up 100, move scratchpad;
+for_window [instance="terminator" title="F3"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id terminator -p scratchpad -l KJ -T "F3" -e "htop"
 bindsym Mod1+F3 [instance="terminator" title="F3"] scratchpad show
 
 #ARandr in scratchpad
-for_window [class="Arandr"] move scratchpad
+for_window [class="Arandr"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id arandr
 bindsym Mod1+F4 [class="Arandr"] scratchpad show
 
 #Vim cheat sheet in scratchpad
-for_window [title="(?)vim-cheat-sheet.gif"] move scratchpad
+for_window [title="(?)vim-cheat-sheet.gif"] move scratchpad, resize 1000 1000;
 exec --no-startup-id viewnior ~/Images/vim-cheat-sheet.gif
 bindsym Mod1+v [title="(?)vim-cheat-sheet.gif"] scratchpad show
 
 #Toggl in scratchpad
-for_window [title="Toggl Desktop"] move scratchpad
+for_window [title="Toggl Desktop"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id toggldesktop
 bindsym $mod+g [title="Toggl Desktop"] scratchpad show
 
 #Spotify in scratchpad
-for_window [class="Spotify"] move scratchpad
+for_window [class="Spotify"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id spotify
-bindsym $mod+a [class="Spotify"] scratchpad show, resize set 1000 1000;
+bindsym $mod+a [class="Spotify"] scratchpad show
 
 #Set some windows as floating
 for_window [window_role="pop-up"] floating enable
