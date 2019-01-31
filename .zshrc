@@ -140,6 +140,16 @@ function hist() {
     fc -li 1000 | grep $date | less
 }
 
+function untrash() {
+    if [[ -z '$2' ]]; then
+        dest=$2
+    else
+        dest='.'
+    fi
+
+    mv ~/.local/share/Trash/files/$1 $dest
+}
+
 #Git
 alias oups='git reset HEAD~'
 
@@ -168,6 +178,25 @@ export PYTHONSTARTUP=~/.pythonrc
 alias pym='python manage.py'
 alias dapy='django-admin.py'
 alias pymt='python manage.py test'
+
+function depym() {
+    if [ $# -eq 1 ]
+    then
+        container="django"
+        command=$1
+    else
+        container=$1
+        command=$2
+    fi
+    docker-compose exec $container python manage.py $command
+}
+
+function drpym() {
+    container="django"
+    command=$@
+    docker-compose run --rm $container python manage.py $command
+}
+
 
 function pvva() {
 	if [ $# -eq 1 ]
