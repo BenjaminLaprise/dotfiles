@@ -30,7 +30,7 @@ ZSH_THEME="lambda"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
-DISABLE_UPDATE_PROMPT="true"
+DISABLE_UPDATE_PROMPT="false"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -111,7 +111,9 @@ export LANG=en_CA.UTF-8
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH:/bin
 export PATH=$HOME/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH="~/bin/geckodriver:$PATH" 
+export CC=gcc-7
 
 eval "$(direnv hook zsh)"
 
@@ -120,6 +122,9 @@ function loadenv() {
 }
 
 alias crawl='wget -mkE -l 10 -t 6 -w 1'
+
+#Screenfetch
+screenfetch
 
 #zsh
 alias ezsh='vim ~/.zshrc'
@@ -131,6 +136,7 @@ alias less='less -Q'
 alias man 'man -P "less -Q"'
 alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
+alias l='la'
 
 function hist() {
     if [[ -z "$3" ]]; then
@@ -172,6 +178,9 @@ alias pacs='sudo pacman -Ss'
 #i3
 alias i3conf='vim ~/.config/i3/config'
 
+#Brew
+PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
 #Django
 #source /usr/bin/virtualenvwrapper.sh
 export PYTHONSTARTUP=~/.pythonrc
@@ -179,24 +188,10 @@ alias pym='python manage.py'
 alias dapy='django-admin.py'
 alias pymt='python manage.py test'
 
-function depym() {
-    if [ $# -eq 1 ]
-    then
-        container="django"
-        command=$1
-    else
-        container=$1
-        command=$2
-    fi
-    docker-compose exec $container python manage.py $command
-}
+alias depym='docker-compose exec django python manage.py'
 
-function drpym() {
-    container="django"
-    command=$@
-    docker-compose run --rm $container python manage.py $command
-}
 
+alias drpym="docker-compose run --rm django python manage.py"
 
 function pvva() {
 	if [ $# -eq 1 ]

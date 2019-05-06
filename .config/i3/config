@@ -7,13 +7,18 @@ font pango:URW Gothic Book 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec termite
 
 # Move focused workspace to monitor
 bindsym $mod+Control+Left move workspace to output left
 bindsym $mod+Control+Up move workspace to output up
 bindsym $mod+Control+Down move workspace to output down
 bindsym $mod+Control+Right move workspace to output right
+
+bindsym $mod+Control+h move workspace to output left
+bindsym $mod+Control+k move workspace to output up
+bindsym $mod+Control+j move workspace to output down
+bindsym $mod+Control+l move workspace to output right
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -29,11 +34,21 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
 # move focused window
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
 bindsym $mod+c split h
@@ -62,7 +77,7 @@ bindsym $mod+Tab focus parent
 bindsym $mod+Shift+Tab focus child
 
 # switch to workspace
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -124,24 +139,24 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous 
 
 #Custom shortcuts
-bindsym Print exec teiler --quickcopy area 
+bindsym Print exec flameshot gui
 bindsym $mod+z exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+shift+p exec lpu
 bindsym $mod+n exec ~/scripts/lock.sh
-bindsym $mod+l exec ~/scripts/web-search.sh
 bindsym $mod+Control+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
-bindsym $mod+Control+p exec ~/.wallpaper/wall_3_2
+bindsym $mod+Control+p exec ~/scripts/auto_xrandr_daemon.py run
 bindsym $mod+Shift+Control+p exec ~/.wallpaper/wall_3
 bindsym $mod+x exec teiler --quick video area
 bindsym $mod+Control+a scratchpad show
 bindsym $mod+Control+c exec rofi -show calc -modi calc -no-show-match -no-sort
-
+bindsym $mod+i exec xdotool click 1
 
 #Startup
 exec --no-startup-id compton --config ~/.compton.conf        
 exec --no-startup-id discord
 exec --no-startup-id slack
+exec --no-startup-id flameshot
 exec --no-startup-id albert
 exec --no-startup-id thunderbird
 exec --no-startup-id greenclip daemon
@@ -149,7 +164,7 @@ exec --no-startup-id unclutter --timeout 1 --fork
 exec --no-startup-id ~/scripts/auto_xrandr_daemon.py start
 exec --no-startup-id rescuetime
 exec --no-startup-id zoom
-
+exec --no-startup-id wal -n -i ~/Images/wallpapers/14\ -\ PSpbQVi.jpg
 #System shortcuts.
 bindsym $mod+Control+Shift+s exec shutdown -h now
 bindsym $mod+Control+Shift+a exec reboot
@@ -157,14 +172,19 @@ bindsym $mod+Control+Shift+a exec reboot
 #Notable in scratchpad
 for_window [title="Notable"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id notable
-bindsym $mod+o [title="Notable"] scratchpad show
+bindsym $mod+Control+o [title="Notable"] scratchpad show
+
+#Todoist in scratchpad
+for_window [title="Todoist"] move scratchpad, resize set 1000 1000;
+exec --no-startup-id todoist
+bindsym $mod+o [title="Todoist"] scratchpad show, move position center;
 
 #Add a terminal in the scratchpad
 for_window [title="scratch-terminal"] foating enable
 for_window [title="scratch-terminal"] resize set 1000 1000
 for_window [title="scratch-terminal"] move scratchpad
-exec --no-startup-id terminator -p scratchpad -l KJ -T "scratch-terminal"
-bindsym Mod4+t [title="scratch-terminal"] scratchpad show, move position center;
+exec --no-startup-id termite -t "scratch-terminal"
+bindsym $mod+Control+Return [title="scratch-terminal"] scratchpad show, resize set 1000 1000, move position center;
 
 #Vtop in scratchpad
 for_window [instance="terminator" title="F1"] move scratchpad, resize set 1000 1000;
@@ -187,7 +207,7 @@ exec --no-startup-id arandr
 bindsym Mod1+F4 [class="Arandr"] scratchpad show
 
 #Vim cheat sheet in scratchpad
-for_window [title="(?)vim-cheat-sheet.gif"] move scratchpad, resize 1000 1000;
+for_window [title="(?)vim-cheat-sheet.gif"] move scratchpad, resize set 1000 1000;
 exec --no-startup-id viewnior ~/Images/vim-cheat-sheet.gif
 bindsym Mod1+v [title="(?)vim-cheat-sheet.gif"] scratchpad show
 
@@ -217,6 +237,7 @@ for_window [class="(?i)blueman"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
 for_window [class="(?i)pinentry"] floating enable
 for_window [title="(?i)Drawer"] floating enable
+for_window [title="(?i)xmessage"] floating enable, move position center;
 for_window [class="(?i)Google-chrome" title="(?)devtools"] floating disable
 
 #Insta-kill 
@@ -246,6 +267,15 @@ client.unfocused        $bg         $bg     $fg  $fg-alt        $fg-alt
 client.urgent           $fg-alt     $fg-alt $fg  $fg-alt        $fg-alt
 client.placeholder      $fg-alt     $bg     $fg  $fg-alt        $fg-alt
 client.background $bg
+
+# class                 border  backgr. text indicator child_border
+#client.focused          $bg     $bg     $fg  $bg       $bg
+#client.focused_inactive $bg     $bg     $fg  $bg       $bg
+#client.unfocused        $bg     $bg     $fg  $bg       $bg
+#client.urgent           $bg     $bg     $fg  $bg       $bg
+#client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
 
 #Set gaps
 gaps inner 6
