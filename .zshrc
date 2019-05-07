@@ -123,8 +123,8 @@ function loadenv() {
 
 alias crawl='wget -mkE -l 10 -t 6 -w 1'
 
-#Screenfetch
-screenfetch
+#Neofetch
+neofetch
 
 #zsh
 alias ezsh='vim ~/.zshrc'
