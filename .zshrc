@@ -67,10 +67,7 @@ DISABLE_UPDATE_PROMPT="false"
 plugins=(
   git
   jump
-  fedora
-  nyan
-  dircycle
-  copydir
+  docker
   sudo
 )
 
@@ -137,20 +134,36 @@ alias man 'man -P "less -Q"'
 alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
 alias l='la'
+alias mux='tmuxinator'
+
+function getDate() {
+    if [ $# -eq 0 ]; then
+        date="20$(date +%y-%m-%d)"
+    elif [ $# -eq 1 ]; then
+        month=$(date +%m)
+        day=$(date +%d)
+        ((day = day + $1))
+        day=$(printf "%02d\n" $day)
+        date="20$year-$month-$day"
+    else
+        if [[ -z "$3" ]]; then
+             year=$(date +%y)
+        fi
+        date="20$year-$1-$2"
+    fi
+
+    echo $date
+}
 
 function hist() {
-    if [[ -z "$3" ]]; then
-         year=$(date +%y)
-    fi
-    date="20$year-$1-$2"
+    date=$(getDate $@) 
     fc -li 1000 | grep $date | less
 }
 
 function untrash() {
+    dest='.'
     if [[ -z '$2' ]]; then
         dest=$2
-    else
-        dest='.'
     fi
 
     mv ~/.local/share/Trash/files/$1 $dest
@@ -160,13 +173,15 @@ function untrash() {
 alias oups='git reset HEAD~'
 
 function gog() {
-    if [[ -z "$3" ]]; then
-        year=$(date +%y)
-    fi
-    start_date="20$year-$1-$2 00:00:00"
-    end_date="20$year-$1-$2 23:59:59"
+    date=$(getDate $@)
+    start_date="$date 00:00:00"
+    start_date="$date 23:59:59"
 
     git log --after=$start_date --before=$end_date --reverse
+}
+
+function gmf () {
+    git fetch $1:$1 && git merge origin/$1
 }
 
 #Arch
@@ -178,19 +193,12 @@ alias pacs='sudo pacman -Ss'
 #i3
 alias i3conf='vim ~/.config/i3/config'
 
-#Brew
-PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
 #Django
 #source /usr/bin/virtualenvwrapper.sh
 export PYTHONSTARTUP=~/.pythonrc
 alias pym='python manage.py'
-alias dapy='django-admin.py'
 alias pymt='python manage.py test'
-
 alias depym='docker-compose exec django python manage.py'
-
-
 alias drpym="docker-compose run --rm django python manage.py"
 
 function pvva() {
@@ -218,13 +226,22 @@ function pymr() {
 	fi
 }
 
+#Wegotrade
+function wgt_e2e_vendor() {
+    protractor protractor.conf.js --specs "$1" --baseUrl https://vendor.wego.vagrant --multiCapabilities
+}
+
+function wgt_e2e_customer() {
+    protractor protractor.conf.js --specs "$1" --baseUrl https://customer.wego.vagrant --multiCapabilities
+}
+
 export EDITOR=$(which vim)
 
 #extensions
 alias j=jump
 
 #Wal
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 #Docker
 alias dck='docker'
