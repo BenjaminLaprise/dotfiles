@@ -120,10 +120,8 @@ function loadenv() {
 
 alias crawl='wget -mkE -l 10 -t 6 -w 1'
 
-#Neofetch
 neofetch
 
-#zsh
 alias ezsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias volu='amixer sset -q Master +2%'
@@ -169,89 +167,14 @@ function untrash() {
     mv ~/.local/share/Trash/files/$1 $dest
 }
 
-#Git
-alias oups='git reset HEAD~'
-
-function gog() {
-    date=$(getDate $@)
-    start_date="$date 00:00:00"
-    start_date="$date 23:59:59"
-
-    git log --after=$start_date --before=$end_date --reverse
-}
-
-function gmf () {
-    git fetch $1:$1 && git merge origin/$1
-}
-
-#Arch
-alias pacu='sudo pacman -Syu'
-alias paci='sudo pacman -S'
-alias pacr='sudo pacman -R'
-alias pacs='sudo pacman -Ss'
-
-#i3
-alias i3conf='vim ~/.config/i3/config'
-
-#Django
-#source /usr/bin/virtualenvwrapper.sh
-export PYTHONSTARTUP=~/.pythonrc
-alias pym='python manage.py'
-alias pymt='python manage.py test'
-alias depym='docker-compose exec django python manage.py'
-alias drpym="docker-compose run --rm django python manage.py"
-
-function pvva() {
-	if [ $# -eq 1 ]
-	then
-		source $1/bin/activate
-	else
-		source venv/bin/activate
-	fi
-}
-
-function pymm() {
-	python manage.py makemigrations
-	python manage.py migrate
-}
-
-function pymr() {
-	if [ $# -eq 0 ]
-	then
-		pym runserver
-	else
-		loadenv .env.docker-mysql 
-		systemctl start docker
-		python manage.py runserver
-	fi
-}
-
-#Wegotrade
-function wgt_e2e_vendor() {
-    protractor protractor.conf.js --specs "$1" --baseUrl https://vendor.wego.vagrant --multiCapabilities
-}
-
-function wgt_e2e_customer() {
-    protractor protractor.conf.js --specs "$1" --baseUrl https://customer.wego.vagrant --multiCapabilities
-}
-
 export EDITOR=$(which vim)
+
+for file in ~/.config/zsh/*; do
+    source "$file"
+done
 
 #extensions
 alias j=jump
-
-#Wal
-#(cat ~/.cache/wal/sequences &)
-
-#Docker
-alias dck='docker'
-alias dckc='docker-compose'
-
-function  dckid() {
-    container_name=$1
-    container_infos=`docker ps -a | grep $container_name`
-    echo $container_infos | awk '{print $1}'
-}
 
 #venv
 . $HOME/.asdf/asdf.sh
