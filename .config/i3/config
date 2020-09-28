@@ -100,18 +100,6 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# Fetch workspace
-bindsym $mod+Shift+1 exec workspace-tool fetch 1
-bindsym $mod+Shift+2 exec workspace-tool fetch 2
-bindsym $mod+Shift+3 exec workspace-tool fetch 3
-bindsym $mod+Shift+4 exec workspace-tool fetch 4
-bindsym $mod+Shift+5 exec workspace-tool fetch 5
-bindsym $mod+Shift+6 exec workspace-tool fetch 6
-bindsym $mod+Shift+7 exec workspace-tool fetch 7
-bindsym $mod+Shift+8 exec workspace-tool fetch 8
-bindsym $mod+Shift+9 exec workspace-tool fetch 9
-bindsym $mod+Shift+0 exec workspace-tool fetch 0
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -151,10 +139,10 @@ bindsym XF86AudioPrev exec playerctl previous
 
 #Custom shortcuts
 bindsym Print exec flameshot gui
-bindsym $mod+z exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+bindsym $mod+z exec xfce4-clipman-history
 bindsym $mod+shift+p exec lpu
 bindsym $mod+n exec ~/scripts/lock.sh
-bindsym $mod+Control+l exec ~/.config/polybar/launch.sh
+bindsym $mod+Control+shift+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
 bindsym $mod+Control+p exec ~/scripts/auto_xrandr_daemon.py run
 bindsym $mod+Shift+Control+p exec ~/.wallpaper/wall_3
@@ -163,20 +151,24 @@ bindsym $mod+Control+a scratchpad show
 bindsym $mod+Control+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+i exec xdotool click 1
 bindsym $mod+p exec ~/scripts/lpass-menu.sh
+bindsym $mod+m exec ~/scripts/swap_keyboard.sh
 
 #Startup
-exec --no-startup-id compton --config ~/.compton.conf        
+exec --no-startup-id compton
 exec --no-startup-id discord
 exec --no-startup-id slack
 exec --no-startup-id flameshot
-exec --no-startup-id albert
-exec --no-startup-id thunderbird
+#exec --no-startup-id thunderbird
 exec --no-startup-id greenclip daemon
 exec --no-startup-id unclutter --timeout 1 --fork  
 exec --no-startup-id ~/scripts/auto_xrandr_daemon.py start
-exec --no-startup-id rescuetime
+exec --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id zoom
-exec --no-startup-id wal -n -i ~/Images/wallpapers/14\ -\ PSpbQVi.jpg
+exec --no-startup-id teams
+exec --no-startup-id nm-applet
+exec --no-startup-id nitrogen --set-auto ~/Pictures/wall2.jpg 
+exec --no-startup-id wal -n -i ~/Pictures/wall2.jpg 
+exec --no-startup-id xfce4-clipman
 
 #System shortcuts.
 bindsym $mod+Control+Shift+s exec shutdown -h now
@@ -200,7 +192,7 @@ bindsym $mod+Control+Return [title="scratch-terminal"] scratchpad show, resize s
 #Vtop in scratchpad
 for_window [instance="terminator" title="F1"] move scratchpad
 exec --no-startup-id terminator -l KJ -T "F1" -e "vtop -t brew"
-bindsym Mod1+F1 [title="F1"] scratchpad show, resize set 1000 1000, move position center;
+#bindsym Mod1+F1 [title="F1"] scratchpad show, resize set 1000 1000, move position center;
 
 #Pavucontrol in scratchpad
 for_window [class="Pavucontrol"] move scratchpad
@@ -211,11 +203,6 @@ bindsym Mod1+F2 [class="Pavucontrol"] scratchpad show, resize set 1000 1000, mov
 for_window [instance="terminator" title="F3"] move scratchpad
 exec --no-startup-id terminator -p scratchpad -l KJ -T "F3" -e "htop"
 bindsym Mod1+F3 [instance="terminator" title="F3"] scratchpad show, resize set 1000 1000, move position center;
-
-#Vim cheat sheet in scratchpad
-for_window [title="(?)vim-cheat-sheet.gif"] move scratchpad, resize set 1000 1000;
-exec --no-startup-id viewnior ~/Images/vim-cheat-sheet.gif
-bindsym Mod1+v [title="(?)vim-cheat-sheet.gif"] scratchpad show
 
 #Spotify in scratchpad
 for_window [class="Spotify"] floating enable
@@ -262,19 +249,19 @@ set_from_resource $hl           i3wm.color13 #ff0000
 
 #Border
 # class                 border      backgr. text indicator      child_border
-client.focused          $fg         $bg     $fg  $fg-alt        $bg
-client.focused_inactive $bg         $bg     $fg  $fg-alt        $fg-alt
-client.unfocused        $bg         $bg     $fg  $fg-alt        $fg-alt
-client.urgent           $fg-alt     $fg-alt $fg  $fg-alt        $fg-alt
-client.placeholder      $fg-alt     $bg     $fg  $fg-alt        $fg-alt
-client.background $bg
+#client.focused          $fg         $bg     $fg  $fg-alt        $bg
+#client.focused_inactive $bg         $bg     $fg  $fg-alt        $fg-alt
+#client.unfocused        $bg         $bg     $fg  $fg-alt        $fg-alt
+#client.urgent           $fg-alt     $fg-alt $fg  $fg-alt        $fg-alt
+#client.placeholder      $fg-alt     $bg     $fg  $fg-alt        $fg-alt
+#client.background $bg
 
 # class                 border  backgr. text indicator child_border
-#client.focused          $bg     $bg     $fg  $bg       $bg
-#client.focused_inactive $bg     $bg     $fg  $bg       $bg
-#client.unfocused        $bg     $bg     $fg  $bg       $bg
-#client.urgent           $bg     $bg     $fg  $bg       $bg
-#client.placeholder      $bg     $bg     $fg  $bg       $bg
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
 

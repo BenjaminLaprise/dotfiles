@@ -112,17 +112,18 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH="~/bin/geckodriver:$PATH" 
 export CC=gcc-7
 
-eval "$(direnv hook zsh)"
-
 function loadenv() {
 	export $(cat ${1:-.env} | xargs)
 }
 
-alias crawl='wget -mkE -l 10 -t 6 -w 1'
+function ezsh() {
+    if [ $# -eq 0 ]; then
+	vim ~/.zshrc
+    else
+	vim ~/.config/zsh/$1
+    fi
+}
 
-neofetch
-
-alias ezsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias volu='amixer sset -q Master +2%'
 alias vold='amixer sset -q Master -2%'
@@ -133,6 +134,7 @@ alias iclip='xclip -selection clipboard'
 alias oclip='xclip -selection clipboard -o'
 alias l='la'
 alias mux='tmuxinator'
+alias dir_name='pwd | rev | cut -f1 -d '/' | rev'
 
 function getDate() {
     if [ $# -eq 0 ]; then
@@ -176,19 +178,21 @@ done
 #extensions
 alias j=jump
 
-#venv
-. $HOME/.asdf/asdf.sh
+# Ruby 2.7.0
+RUBY_PACKAGES="${HOME}/.gem/ruby/2.7.0"
+# PATH="$RUBY_PACKAGES/bin:$PATH"
 
-. $HOME/.asdf/completions/asdf.bash
-
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source $HOME/.local/bin/virtualenvwrapper.sh
+# RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 
 #NPM
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 PATH="$NPM_PACKAGES/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
@@ -198,8 +202,5 @@ if [ -f ~/zsh.command-not-found ]; then
     . ~/zsh.command-not-found
 fi
 
-eval $(thefuck --alias)
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-source $HOME/.bin/tmuxinator.zsh
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
