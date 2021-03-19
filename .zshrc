@@ -182,6 +182,9 @@ alias j=jump
 RUBY_PACKAGES="${HOME}/.gem/ruby/2.7.0"
 # PATH="$RUBY_PACKAGES/bin:$PATH"
 
+# GO
+export GOCACHE="${HOME}/.gocache"
+
 # RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 

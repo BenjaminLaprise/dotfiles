@@ -136,11 +136,11 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86AudioPlay exec playerctl play-pause  
 bindsym XF86AudioNext exec playerctl next  
 bindsym XF86AudioPrev exec playerctl previous 
+bindsym $mod+shift+s exec amixer set Capture toggle
 
 #Custom shortcuts
-bindsym Print exec flameshot gui
+bindsym $mod+Control+s exec flameshot gui
 bindsym $mod+z exec xfce4-clipman-history
-bindsym $mod+shift+p exec lpu
 bindsym $mod+n exec ~/scripts/lock.sh
 bindsym $mod+Control+shift+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
@@ -150,8 +150,8 @@ bindsym $mod+x exec teiler --quick video area
 bindsym $mod+Control+a scratchpad show
 bindsym $mod+Control+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+i exec xdotool click 1
-bindsym $mod+p exec ~/scripts/lpass-menu.sh
 bindsym $mod+m exec ~/scripts/swap_keyboard.sh
+bindsym $mod+g exec ~/scripts/start_timer.sh
 
 #Startup
 exec --no-startup-id compton
@@ -197,7 +197,7 @@ exec --no-startup-id terminator -l KJ -T "F1" -e "vtop -t brew"
 #Pavucontrol in scratchpad
 for_window [class="Pavucontrol"] move scratchpad
 exec --no-startup-id pavucontrol
-bindsym Mod1+F2 [class="Pavucontrol"] scratchpad show, resize set 1000 1000, move position center;
+bindsym $mod+p [class="Pavucontrol"] scratchpad show, resize set 1000 1000, move position center;
 
 #Htop in scratchpad
 for_window [instance="terminator" title="F3"] move scratchpad
@@ -227,6 +227,7 @@ for_window [class="(?i)pinentry"] floating enable
 for_window [title="(?i)Drawer"] floating enable
 for_window [title="(?i)xmessage"] floating enable, move position center;
 for_window [class="(?i)Google-chrome" title="(?)devtools"] floating disable
+for_window [title="(?i)PyToggl - Start timer"] floating enable
 
 #Insta-kill 
 for_window [title="(?i)Zoom Cloud Meetings"] kill
