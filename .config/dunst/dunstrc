@@ -1,5 +1,5 @@
 [global]
-    font = Monospace 8
+    font = Monospace 12
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -64,7 +64,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-30+20"
+    geometry = "500x5-30+20"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -94,7 +94,7 @@
     # 
     # If this option is set to mouse or keyboard, the monitor option
     # will be ignored.
-    follow = none
+    follow = keyboard
     
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
@@ -180,8 +180,8 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#AAAAAA"
-    foreground = "#222222"
+    background = "#444"
+    foreground = "#FFF"
     timeout = 10
 
 [urgency_critical]

@@ -158,14 +158,16 @@ exec --no-startup-id compton
 exec --no-startup-id discord
 exec --no-startup-id slack
 exec --no-startup-id flameshot
-#exec --no-startup-id thunderbird
+exec --no-startup-id thunderbird
 exec --no-startup-id greenclip daemon
 exec --no-startup-id unclutter --timeout 1 --fork  
 exec --no-startup-id ~/scripts/auto_xrandr_daemon.py start
 exec --no-startup-id ~/.config/polybar/launch.sh
+#exec --no-startup-id ~/.screenlayout/default.sh
 exec --no-startup-id zoom
 exec --no-startup-id teams
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id nitrogen --set-auto ~/Pictures/wall2.jpg 
 exec --no-startup-id wal -n -i ~/Pictures/wall2.jpg 
 exec --no-startup-id xfce4-clipman
