@@ -1,0 +1,1 @@
+alias i3conf="vim $HOME/.config/i3/config"

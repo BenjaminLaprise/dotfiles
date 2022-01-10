@@ -1,0 +1,2 @@
+alias dckc="docker-compose"
+alias drpym="docker-compose run --rm django python manage.py"

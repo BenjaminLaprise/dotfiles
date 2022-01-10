@@ -1,0 +1,13 @@
+#!/usr/bin/env bash 
+
+function workon() {
+	if [ $# -eq 0 ]; then
+		VENV=$(dir_name)
+	else
+		VENV=$1
+	fi
+
+	source $HOME/.virtualenvs/$VENV/bin/activate
+}
+
+alias pym="python manage.py"

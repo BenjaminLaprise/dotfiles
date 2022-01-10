@@ -1,0 +1,5 @@
+alias paci='sudo pacman -S'
+alias pacr='sudo pacman -R'
+alias pacu='sudo pacman -Syu'
+alias pams='pamac search -a'
+alias pami='pamac build'
