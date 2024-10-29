@@ -110,6 +110,7 @@ export PATH=$PATH:$GOPATH:/bin
 export PATH=$HOME/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH="~/bin/geckodriver:$PATH" 
+export PATH="~/idea-IU-232.10203.10/bin:$PATH" 
 export CC=gcc-7
 
 function loadenv() {
@@ -197,6 +198,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+nvm use 12 > /dev/null
+
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
@@ -207,3 +210,7 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+source $HOME/.poetry/env
+
+. "$HOME/.cargo/env"

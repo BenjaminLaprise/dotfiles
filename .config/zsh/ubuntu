@@ -1,0 +1,7 @@
+alias apti="sudo apt install"
+alias aptu="sudo apt update"
+alias aptg="sudo apt upgrade"
+alias aptug="sudo apt update && sudo apt upgrade"
+alias aptr="sudo apt remove"
+alias apts="apt search"
+

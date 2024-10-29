@@ -1,13 +1,13 @@
 set $mod Mod4
 
 # Font for window titles.
-font pango:URW Gothic Book 10
+font pango:Inconsolata Gill Sans 9
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec terminator
 
 # Move focused workspace to monitor
 bindsym $mod+Control+Left move workspace to output left
@@ -88,6 +88,17 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod+KP_1 workspace $ws1
+bindsym $mod+KP_2 workspace $ws2
+bindsym $mod+KP_3 workspace $ws3
+bindsym $mod+KP_4 workspace $ws4
+bindsym $mod+KP_5 workspace $ws5
+bindsym $mod+KP_6 workspace $ws6
+bindsym $mod+KP_7 workspace $ws7
+bindsym $mod+KP_8 workspace $ws8
+bindsym $mod+KP_9 workspace $ws9
+bindsym $mod+KP_0 workspace $ws10
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -99,6 +110,17 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Shift+KP_1 move container to workspace 1
+bindsym $mod+Shift+KP_2 move container to workspace 2
+bindsym $mod+Shift+KP_3 move container to workspace 3
+bindsym $mod+Shift+KP_4 move container to workspace 4
+bindsym $mod+Shift+KP_5 move container to workspace 5
+bindsym $mod+Shift+KP_6 move container to workspace 6
+bindsym $mod+Shift+KP_7 move container to workspace 7
+bindsym $mod+Shift+KP_8 move container to workspace 8
+bindsym $mod+Shift+KP_9 move container to workspace 9
+bindsym $mod+Shift+KP_0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -125,33 +147,41 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 
 #Sound's keybinding
 bindsym XF86AudioRaiseVolume exec amixer sset Master 1%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 1%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 
+bindsym --whole-window $mod+button11 exec amixer sset Master 5%+
+bindsym --whole-window $mod+button12 exec amixer sset Master 5%-
+#
 #Binding media keys
 bindsym XF86AudioPlay exec playerctl play-pause  
 bindsym XF86AudioNext exec playerctl next  
 bindsym XF86AudioPrev exec playerctl previous 
-bindsym $mod+shift+s exec amixer set Capture toggle
+
+bindsym --whole-window button11 exec playerctl play-pause
+bindsym --whole-window button12 exec ~/scripts/mute-mic.sh
+bindsym --whole-window button14 exec playerctl next
+bindsym --whole-window button15 exec playerctl previous
 
 #Custom shortcuts
 bindsym $mod+Control+s exec flameshot gui
-bindsym $mod+z exec xfce4-clipman-history
-bindsym $mod+n exec ~/scripts/lock.sh
+bindsym $mod+z exec copyq toggle
 bindsym $mod+Control+shift+l exec ~/.config/polybar/launch.sh
 bindsym $mod+Control+n exec nautilus
 bindsym $mod+Control+p exec ~/scripts/auto_xrandr_daemon.py run
 bindsym $mod+Shift+Control+p exec ~/.wallpaper/wall_3
-bindsym $mod+x exec teiler --quick video area
+bindsym $mod+Shift+p exec blueman-manager
 bindsym $mod+Control+a scratchpad show
 bindsym $mod+Control+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+i exec xdotool click 1
 bindsym $mod+m exec ~/scripts/swap_keyboard.sh
 bindsym $mod+g exec ~/scripts/start_timer.sh
+bindsym $mod+x exec ~/scripts/lock.sh
+bindsym $mod+r exec ~/scripts/invert_layout.sh
 
 #Startup
 exec --no-startup-id compton
@@ -159,37 +189,26 @@ exec --no-startup-id discord
 exec --no-startup-id slack
 exec --no-startup-id flameshot
 exec --no-startup-id thunderbird
-exec --no-startup-id greenclip daemon
 exec --no-startup-id unclutter --timeout 1 --fork  
 exec --no-startup-id ~/scripts/auto_xrandr_daemon.py start
-exec --no-startup-id ~/.config/polybar/launch.sh
-#exec --no-startup-id ~/.screenlayout/default.sh
-exec --no-startup-id zoom
-exec --no-startup-id teams
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id nitrogen --set-auto ~/Pictures/wall2.jpg 
-exec --no-startup-id wal -n -i ~/Pictures/wall2.jpg 
-exec --no-startup-id xfce4-clipman
+exec --no-startup-id nitrogen --set-zoom-fill ~/Pictures/wall.jpg 
+exec --no-startup-id copyq
 
 #System shortcuts.
 bindsym $mod+Control+Shift+s exec shutdown -h now
 bindsym $mod+Control+Shift+a exec reboot
 
 #Typora in scratchpad
-for_window [title="Typora"] move scratchpad
-exec --no-startup-id typora
-bindsym $mod+Control+o [title="Typora"] scratchpad show, resize set 1000 1000, move position center;
+for_window [class="notion-snap"] move scratchpad
+exec --no-startup-id notion-snap
+bindsym $mod+o [class="notion-snap"] scratchpad show, resize set 1000 1000, move position center;
 
 #Todoist in scratchpad
 for_window [title="Todoist"] move scratchpad
 exec --no-startup-id todoist
-bindsym $mod+o [title="Todoist"] scratchpad show, resize set 1000 1000, move position center;
-
-#Terminal in the scratchpad
-for_window [title="scratch-terminal"] move scratchpad
-exec --no-startup-id termite -t "scratch-terminal"
-bindsym $mod+Control+Return [title="scratch-terminal"] scratchpad show, resize set 1000 1000, move position center;
+bindsym $mod+Control+o [title="Todoist"] scratchpad show, resize set 1000 1000, move position center;
 
 #Vtop in scratchpad
 for_window [instance="terminator" title="F1"] move scratchpad
@@ -200,6 +219,7 @@ exec --no-startup-id terminator -l KJ -T "F1" -e "vtop -t brew"
 for_window [class="Pavucontrol"] move scratchpad
 exec --no-startup-id pavucontrol
 bindsym $mod+p [class="Pavucontrol"] scratchpad show, resize set 1000 1000, move position center;
+bindsym $mod+shift+a [class="Pavucontrol"] scratchpad show, resize set 1000 1000, move position center;
 
 #Htop in scratchpad
 for_window [instance="terminator" title="F3"] move scratchpad
@@ -207,11 +227,9 @@ exec --no-startup-id terminator -p scratchpad -l KJ -T "F3" -e "htop"
 bindsym Mod1+F3 [instance="terminator" title="F3"] scratchpad show, resize set 1000 1000, move position center;
 
 #Spotify in scratchpad
-for_window [class="Spotify"] floating enable
-for_window [class="Spotify"] resize set 1000 1000
 for_window [class="Spotify"] move scratchpad
 exec --no-startup-id spotify
-bindsym $mod+a [class="Spotify"] scratchpad show, move position center;
+bindsym $mod+a [class="Spotify"] scratchpad show, move position center, resize set 1000 1000;
 
 #Set some windows as floating
 for_window [window_role="pop-up"] floating enable
@@ -219,7 +237,7 @@ for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
-for_window [window_type="menu"] floating enable
+for_window [window_type="menu"] floating enable/or_window [class="Spotify"] floating enable
 for_window [class="(?i)qemu-system"] floating enable
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
@@ -230,6 +248,7 @@ for_window [title="(?i)Drawer"] floating enable
 for_window [title="(?i)xmessage"] floating enable, move position center;
 for_window [class="(?i)Google-chrome" title="(?)devtools"] floating disable
 for_window [title="(?i)PyToggl - Start timer"] floating enable
+for_window [title="(?i)Copyq"] floating enable
 
 #Insta-kill 
 for_window [title="(?i)Zoom Cloud Meetings"] kill
@@ -240,7 +259,7 @@ for_window [class=".*"] border pixel 3
 for_window [class="(?i)Google-chrome"] border pixel 0
 for_window [class="(?i)albert"] border pixel 0
 for_window [class="(?i)terminator"] border pixel 0
-for_window [class="(?i)termite"] border pixel 0
+for_window [class="(?i)terminator"] border pixel 0
 for_window [class="(?i)urxvt"] border pixel 0
 
 #Set colors
@@ -260,13 +279,37 @@ set_from_resource $hl           i3wm.color13 #ff0000
 #client.background $bg
 
 # class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg     $fg  $bg       $bg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
-client.urgent           $bg     $bg     $fg  $bg       $bg
-client.placeholder      $bg     $bg     $fg  $bg       $bg
+#client.focused          $bg     $bg     $fg  $bg       $bg
+#client.focused_inactive $bg     $bg     $fg  $bg       $bg
+#client.unfocused        $bg     $bg     $fg  $bg       $bg
+#client.urgent           $bg     $bg     $fg  $bg       $bg
+#client.placeholder      $bg     $bg     $fg  $bg       $bg
 
-client.background       $bg
+#client.background       $bg
+
+# class                 border  bground text    indicator child_border
+#client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+#client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+#client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+#client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+#client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
+bar {
+  status_command i3status
+  colors {
+    background #282A36
+    statusline #F8F8F2
+    separator  #44475A
+
+    focused_workspace  #44475A #44475A #F8F8F2
+    active_workspace   #282A36 #44475A #F8F8F2
+    inactive_workspace #282A36 #282A36 #BFBFBF
+    urgent_workspace   #FF5555 #FF5555 #F8F8F2
+    binding_mode       #FF5555 #FF5555 #F8F8F2
+  }
+}
 
 #Set gaps
 gaps inner 6
